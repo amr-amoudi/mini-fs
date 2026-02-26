@@ -2,6 +2,7 @@ use std::rc::Rc;
 use crate::file_system::content::{Content, HandleContent};
 
 #[derive(Debug)]
+#[derive(Clone)]
 pub struct Dir {
     path: String,
     children: Rc<Vec<Content>>

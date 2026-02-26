@@ -1,6 +1,7 @@
 use crate::file_system::content::HandleContent;
 
 #[derive(Debug)]
+#[derive(Clone)]
 pub struct File {
     pub name: String,
     pub extension: String

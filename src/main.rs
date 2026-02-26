@@ -5,9 +5,11 @@ mod files;
 use dirs::Dir::Dir;
 use crate::file_system::content::{Content, HandleContent};
 use files::file::File;
+use crate::file_system::commands::parse_command::Command;
+use crate::file_system::system::System;
 
 fn main() {
-    let dir: Dir = Dir::new("/".to_string(),vec![
+    let dir = Dir::new("/".to_string(),vec![
         Content::Dir(Dir::new("/home".to_string(),
                               vec![
                                   Content::File(File::new("text2".to_string(), "txt".to_string()))
@@ -23,17 +25,10 @@ fn main() {
                               ])),
         Content::File(File::new("text".to_string(), "txt".to_string()))
     ]);
-    dir.children().iter().for_each(|x| {
-        match x {
-            Content::Dir(v) => {
-                println!("{}", v.name())
-            }
-            Content::File(v) => {
-                println!("{}.{}", v.name, v.extension)
-            }
-        }
-    });
-    dir.goto("/home".to_string()).unwrap().display();
-    dir.goto("/local".to_string()).unwrap().display().goto("/host".to_string()).unwrap().display();
+    let current_location: &Dir = &dir;
+
+    let mut system = System::new(current_location, &dir);
+    let command = Command::parse(Command::get());
+    system.run(command)
 }
 
