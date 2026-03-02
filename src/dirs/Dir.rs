@@ -1,12 +1,14 @@
-use std::borrow::Borrow;
-use std::rc::Rc;
+use std::borrow::BorrowMut;
+use std::cell::RefCell;
+use std::rc::{Rc, Weak};
 use crate::file_system::content::{Content, HandleContent};
 
 #[derive(Debug)]
 #[derive(Clone)]
 pub struct Dir {
     path: String,
-    children: Vec<Rc<Content>>
+    children: Vec<Rc<Content>>,
+    pub parent: Option<Weak<RefCell<Dir>>>
 }
 
 impl HandleContent for Dir {
@@ -15,7 +17,7 @@ impl HandleContent for Dir {
         self.children.iter().for_each(|x| {
             match &**x {
                 Content::Dir(v) => {
-                    println!("{}", v.path);
+                    println!("{}", RefCell::borrow(&v).path);
                 }
                 Content::File(v) => {
                     v.display();
@@ -27,10 +29,11 @@ impl HandleContent for Dir {
 }
 
 impl Dir {
-    pub fn new(path: String, children: Vec<Rc<Content>>) -> Self {
+    pub fn new(path: String, children: Vec<Rc<Content>>, parent: Option<Weak<RefCell<Dir>>>) -> Self {
         Dir {
             path,
-            children
+            children,
+            parent
         }
     }
 
@@ -47,10 +50,16 @@ impl Dir {
         println!("{}", self.path)
     }
 
-    pub fn find_dir(&self, path: String) -> Option<Rc<Dir>>{
+    pub fn children_mut(&mut self) -> &mut Vec<Rc<Content>>{
+        let r = &mut self.children;
+        r
+    }
+
+    pub fn find_dir(&self, path: String) -> Option<Rc<RefCell<Dir>>>{
+        // find dir inside children
         for content in self.children.iter() {
             let (is_dir, dir) = content.is_dir();
-            if is_dir && dir.as_ref().unwrap().path == path {
+            if is_dir && RefCell::borrow(dir.as_ref().unwrap()).path == path {
                 return dir;
             }
         }
