@@ -20,7 +20,7 @@ Built as a learning project to explore core Rust concepts like ownership, smart 
 | `pwd`          | Print current directory                                               |
 | `mkdir <name>` | Create a new directory in the current location                        |
 | `ls`           | Print current items in the direcotry                                  |                       |
-| `touch`        | Create new folderes (e.g. text.txt)                                   |
+| `touch`        | Create new files (e.g. text.txt)                                   |
 ## Project Structure
 
 ```
