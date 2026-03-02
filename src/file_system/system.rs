@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::{Rc};
-use crate::dirs::Dir::Dir;
+use crate::dirs::dir::Dir;
 use crate::file_system::commands::parse_command::Command;
 use crate::file_system::commands::paths::Path;
 use crate::file_system::content::{Content, HandleContent};

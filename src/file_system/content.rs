@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
-use crate::dirs::Dir::Dir;
+use crate::dirs::dir::Dir;
 use crate::files::file::File;
 
 #[derive(Debug)]

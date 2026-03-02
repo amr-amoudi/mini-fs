@@ -4,7 +4,7 @@ mod files;
 
 use std::cell::RefCell;
 use std::rc::Rc;
-use dirs::Dir::Dir;
+use dirs::dir::Dir;
 use crate::file_system::commands::parse_command::Command;
 use crate::file_system::system::System;
 

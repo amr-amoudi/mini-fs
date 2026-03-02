@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 use std::rc::Rc;
-use crate::dirs::Dir::Dir;
+use crate::dirs::dir::Dir;
 use crate::file_system::system::System;
 
 pub struct Path<'a> {
@@ -64,7 +64,6 @@ impl<'a> Path<'a> {
     }
 
     pub fn get_target(&self, system: &System) -> Option<Rc<RefCell<Dir>>>{
-        println!("{:?}", &self.parse());
         match self.start_on {
             StartOn::Root => {
                 self.root_navigate(&system)
