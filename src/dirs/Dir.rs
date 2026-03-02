@@ -1,4 +1,3 @@
-use std::borrow::BorrowMut;
 use std::cell::RefCell;
 use std::rc::{Rc, Weak};
 use crate::file_system::content::{Content, HandleContent};
