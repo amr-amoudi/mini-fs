@@ -52,7 +52,7 @@ src/
 ## Getting Started
 
 ```bash
-git clone https://github.com/yourusername/mini-fs
+git clone https://github.com/amr-amoudi/mini-fs
 cd mini-fs
 cargo run
 ```
